@@ -1,0 +1,131 @@
+with
+
+diff2 as (
+select 
+  count(distinct t2.sweb_id)  as total
+from 
+  wk_db.mail_dup_del_002 t2
+     left join wk_db.mail_dup_del_001 t1
+          on t2.sweb_id = t1.sweb_id
+where 
+  t1.sweb_id is null
+
+),
+
+diff3 as (
+select 
+  count(distinct t3.sweb_id) as total
+from 
+  wk_db.mail_dup_del_003 t3
+     left join wk_db.mail_dup_del_001 t1
+          on t3.sweb_id = t1.sweb_id
+     left join wk_db.mail_dup_del_002 t2
+          on t3.sweb_id = t2.sweb_id
+where 
+  t1.sweb_id is null
+  and t2.sweb_id is null
+),
+
+diff4 as (
+select 
+  count(distinct t4.sweb_id) as total
+from 
+  wk_db.mail_dup_del_004 t4
+     left join wk_db.mail_dup_del_001 t1
+          on t4.sweb_id = t1.sweb_id
+     left join wk_db.mail_dup_del_002 t2
+          on t4.sweb_id = t2.sweb_id
+     left join wk_db.mail_dup_del_003 t3
+          on t4.sweb_id = t3.sweb_id
+where 
+  t1.sweb_id is null
+  and t2.sweb_id is null
+  and t3.sweb_id is null
+),
+
+diff5 as (
+select 
+  count(distinct t5.sweb_id) as total
+from 
+  wk_db.mail_dup_del_005 t5
+     left join wk_db.mail_dup_del_001 t1
+          on t5.sweb_id = t1.sweb_id
+     left join wk_db.mail_dup_del_002 t2
+          on t5.sweb_id = t2.sweb_id
+     left join wk_db.mail_dup_del_003 t3
+          on t5.sweb_id = t3.sweb_id
+     left join wk_db.mail_dup_del_004 t4
+          on t5.sweb_id = t4.sweb_id
+where 
+  t1.sweb_id is null
+  and t2.sweb_id is null
+  and t3.sweb_id is null
+  and t4.sweb_id is null
+
+)
+
+,diff6 as (
+select 
+  count(distinct t6.sweb_id) as total
+from 
+  wk_db.mail_dup_del_006 t6
+     left join wk_db.mail_dup_del_001 t1
+          on t6.sweb_id = t1.sweb_id
+     left join wk_db.mail_dup_del_002 t2
+          on t6.sweb_id = t2.sweb_id
+     left join wk_db.mail_dup_del_003 t3
+          on t6.sweb_id = t3.sweb_id
+     left join wk_db.mail_dup_del_004 t4
+          on t6.sweb_id = t4.sweb_id
+     left join wk_db.mail_dup_del_005 t5
+          on t6.sweb_id = t5.sweb_id
+where 
+  t1.sweb_id is null
+  and t2.sweb_id is null
+  and t3.sweb_id is null
+  and t4.sweb_id is null
+  and t5.sweb_id is null
+)
+
+,diff7 as (
+select 
+  count(distinct t7.sweb_id) as total
+from 
+  wk_db.mail_dup_del_007 t7
+     left join wk_db.mail_dup_del_001 t1
+          on t7.sweb_id = t1.sweb_id
+     left join wk_db.mail_dup_del_002 t2
+          on t7.sweb_id = t2.sweb_id
+     left join wk_db.mail_dup_del_003 t3
+          on t7.sweb_id = t3.sweb_id
+     left join wk_db.mail_dup_del_004 t4
+          on t7.sweb_id = t4.sweb_id
+     left join wk_db.mail_dup_del_005 t5
+          on t7.sweb_id = t5.sweb_id
+     left join wk_db.mail_dup_del_006 t6
+          on t7.sweb_id = t6.sweb_id
+where 
+  t1.sweb_id is null
+  and t2.sweb_id is null
+  and t3.sweb_id is null
+  and t4.sweb_id is null
+  and t5.sweb_id is null
+  and t6.sweb_id is null
+
+)
+
+select '1' AS "優先度", count(*) AS "除外前",count(*) AS "除外後" from wk_db.mail_dup_del_001  where time >=0
+union all
+select '2' AS "優先度", count(*) AS "除外前" ,(select total from diff2) AS "除外後" from wk_db.mail_dup_del_002  where time >=0
+union all
+select '3' AS "優先度", count(*) AS "除外前" ,(select total from diff3) AS "除外後" from wk_db.mail_dup_del_003  where time >=0
+union all
+select '4' AS "優先度", count(*) AS "除外前" ,(select total from diff4) AS "除外後"  from wk_db.mail_dup_del_004  where time >=0
+union all
+select '5' AS "優先度", count(*) AS "除外前" ,(select total from diff5) AS "除外後" from wk_db.mail_dup_del_005  where time >=0
+union all
+select '6' AS "優先度", count(*) AS "除外前",(select total from diff6) AS "除外後"  from wk_db.mail_dup_del_006  where time >=0
+union all
+select '7' AS "優先度", count(*) AS "除外前",(select total from diff7) AS "除外後"   from wk_db.mail_dup_del_007  where time >=0
+
+ORDER BY "優先度";

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+  <log>
+  	<dir>./log/</dir>
+  </log>
+  
+   <runSql>
+  	<dir>../</dir>
+  	<target>sql.*txt</target>
+  	<database>cwh_db</database>
+  	<type>presto</type>
+  	<format>tsv</format>
+  </runSql>
+  
+  <xml>
+  	<dir>/outRunTd/env/envlist.xml</dir>
+  </xml>
+	
+</doc>

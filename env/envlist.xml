@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>  
+  <log>
+  	<dir>.\log\</dir>
+  </log>
+  
+   <proxy>
+          <flg>1</flg>             <!-- 1:proxy経由する、0:proxy経由しない -->
+          <certification></certification>
+   </proxy>
+  
+  <smart>
+	<authorization></authorization>
+	<reportId>1847260452546436</reportId>
+	<fileName>output.csv</fileName>
+  </smart>
+  
+  <createDir>
+	<month>1</month>
+	<dir></dir>
+  </createDir>
+  
+   <fileCopy>
+	<flg>1</flg>
+	<dir></dir>
+  </fileCopy>
+  
+    <api>
+       <retry>3</retry>                                <!-- リトライ回数 -->
+       <retry_term>180</retry_term>                     <!-- リトライ間隔（秒） -->
+	</api>
+	
+</doc>
